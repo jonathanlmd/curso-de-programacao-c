@@ -1,0 +1,166 @@
+Bulbassauro;1;Planta;Venenoso;Ivyssauro #002
+Ivyssauro;2;Planta;Venenoso;Venussauro #003
+Mega Venussauro;3;Planta;Venenoso;Não evoluem
+Venussauro;3;Planta;Venenoso;Mega Evolução
+Charmander;4;Fogo;*;Charmeleon #005
+Charmeleon;5;Fogo;*;Charizard #006
+Charizard;6;Fogo;Voador;Mega Evolução
+Mega Charizard X;6;Fogo;Dragão;Não evoluem
+Mega Charizard Y;6;Fogo;Voador;Não evoluem
+Squirtle;7;Água;*;Wartortle #008
+Wartortle;8;Água;*;Blastoise #009
+Blastoise;9;Água;*;Mega Evolução
+Mega Blastoise;9;Água;*;Não evoluem
+Caterpie;10;Inseto;*;Metapod #011
+Metapod;11;Inseto;*;Butterfree #012
+Butterfree;12;Inseto;Voador;Não evoluem
+Weedle;13;Inseto;Venenoso;Kakuna #014
+Kakuna;14;Inseto;Venenoso;Beedrill #015
+Beedrill;15;Inseto;Venenoso;Mega Evolução
+Mega Beedrill;15;Inseto;Venenoso;Não evoluem
+Pidgey;16;Normal;Voador;Pidgeotto #017
+Pidgeotto;17;Normal;Voador;Pidgeot #018
+Mega Pidgeot;18;Normal;Voador;Não evoluem
+Pidgeot;18;Normal;Voador;Mega Evolução
+Rattata;19;Normal;*;Raticate #020
+Raticate;20;Normal;*;Não evoluem
+Spearow;21;Normal;Voador;Fearow #022
+Fearow;22;Normal;Voador;Não evoluem
+Ekans;23;Venenoso;*;Arbok #024
+Arbok;24;Venenoso;*;Não evoluem
+Pikachu;25;Elétrico;*;Raichu #026
+Raichu;26;Elétrico;*;Não evoluem
+Sandshrew;27;Terrestre;*;Sandslash #028
+Sandslash;28;Terrestre;*;Não evoluem
+Nidoran♀;29;Venenoso;*;Nidorina #030
+Nidorina;30;Venenoso;*;Nidoqueen #031
+Nidoqueen;31;Venenoso;Terrestre;Não evoluem
+Nidoran♂;32;Venenoso;*;Nidorino #033
+Nidorino;33;Venenoso;*;Nidoking #034
+Nidoking;34;Venenoso;Terrestre;Não evoluem
+Clefairy;35;Normal;*;Clefable #036
+Clefable;36;Normal;*;Não evoluem
+Vulpix;37;Fogo;*;Ninetales #038
+Ninetales;38;Fogo;*;Não evoluem
+Jigglypuff;39;Normal;*;Wigglytuff #040
+Wigglytuff;40;Normal;*;Não evoluem
+Zubat;41;Venenoso;Voador;Golbat #042
+Golbat;42;Venenoso;Voador;Crobat #169
+Oddish;43;Planta;Venenoso;Gloom #044
+Gloom;44;Planta;Venenoso;Vileplume #045
+Vileplume;45;Planta;Venenoso;Não evoluem
+Paras;46;Inseto;Planta;Parasect #047
+Parasect;47;Inseto;Planta;Não evoluem
+Venonat;48;Inseto;Planta;Não evoluem
+Venomoth;49;Inseto;Venenoso;Não evoluem
+Diglett;50;Terrestre;*;Dugtrio #051
+Dugtrio;51;Terrestre;*;Não evoluem
+Meowth;52;Normal;*;Persian #053
+Persian;53;Normal;*;Não evoluem
+Psyduck;54;Água;*;Golduck #055
+Golduck;55;Água;*;Não evoluem
+Mankey;56;Lutador;*;Primeape #057
+Primeape;57;Lutador;*;Não evoluem
+Growlithe;58;Fogo;*;Arcanine #059
+Arcanine;59;Fogo;*;Não evoluem
+Poliwag;60;Água;*;Poliwhirl #061
+Poliwhirl;61;Água;*;Poliwrath #062
+Poliwrath;62;Água;Lutador;Não evoluem
+Abra;63;Psíquico;*;Kadabra #064
+Kadabra;64;Psíquico;*;Alakazam #065
+Alakazam;65;Psíquico;*;Mega Evolução
+Mega Alakazam;65;Psíquico;*;Não evoluem
+Machop;66;Lutador;*;Machoke #067
+Machoke;67;Lutador;*;Machamp #068
+Machamp;68;Lutador;*;Não evoluem
+Bellsprout;69;Planta;Venenoso;Weepinbell #070
+Weepinbell;70;Planta;Venenoso;Victreebel #071
+Victreebel;71;Planta;Venenoso;Não evoluem
+Tentacool;72;Água;Venenoso;Tentacruel #073
+Tentacruel;73;Água;Venenoso;Não evoluem
+Geodude;74;Pedra;Terrestre;Graveler #075
+Graveler;75;Pedra;Terrestre;Golem #076
+Golem;76;Pedra;Terrestre;Não evoluem
+Ponyta;77;Fogo;*;Rapidash #078
+Rapidash;78;Fogo;*;Não evoluem
+Slowpoke;79;Água;Psíquico;Slowbro #080
+Mega Slowbro;80;Água;Psíquico;Não evoluem
+Slowbro;80;Água;Psíquico;Mega Evolução
+Magnemite;81;Elétrico;*;Magneton #082
+Magneton;82;Elétrico;*;Não evoluem
+Farfetch'd;83;Normal;Voador;Não evoluem
+Doduo;84;Normal;Voador;Dodrio #085
+Dodrio;85;Normal;Voador;Não evoluem
+Seel;86;Água;*;Dewgong #087
+Dewgong;87;Água;Gelo;Não evoluem
+Grimer;88;Venenoso;*;Muk #089
+Muk;89;Venenoso;*;Não evoluem
+Shellder;90;Água;*;Cloyster #091
+Cloyster;91;Água;Gelo;Não evoluem
+Gastly;92;Fantasma;Venenoso;Haunter #093
+Haunter;93;Fantasma;Venenoso;Gengar #094
+Gengar;94;Fantasma;Venenoso;Mega Evolução
+Mega Gengar;94;Fantasma;Venenoso;Não evoluem
+Onix;95;Pedra;Terrestre;Não evoluem
+Drowzee;96;Psíquico;*;Hypno #097
+Hypno;97;Psíquico;*;Não evoluem
+Krabby;98;Água;*;Kingler #099
+Kingler;99;Água;*;Não evoluem
+Voltorb;100;Elétrico;*;Electrode #101
+Electrode;101;Elétrico;*;Não evoluem
+Exeggcute;102;Planta;Psíquico;Exeggutor #103
+Exeggutor;103;Planta;Psíquico;Não evoluem
+Cubone;104;Terrestre;*;Marowak #105
+Marowak;105;Terrestre;*;Não evoluem
+Hitmonlee;106;Lutador;*;Não evoluem
+Hitmonchan;107;Lutador;*;Não evoluem
+Lickitung;108;Normal;*;Não evoluem
+Koffing;109;Venenoso;*;Weezing #110
+Weezing;110;Venenoso;*;Não evoluem
+Rhyhorn;111;Terrestre;Pedra;Rhydon #112
+Rhydon;112;Terrestre;Pedra;Não evoluem
+Chansey;113;Normal;*;Não evoluem
+Tangela;114;Planta;*;Não evoluem
+Kangaskhan;115;Normal;*;Mega Evolução
+Mega Kangaskhan;115;Normal;*;Não evoluem
+Horsea;116;Água;*;Seadrea #117
+Seadra;117;Água;*;Não evoluem
+Goldeen;118;Água;*;Seaking #119
+Seaking;119;Água;*;Não evoluem
+Staryu;120;Água;*;Starmie #121
+Starmie;121;Água;Psíquico;Não evoluem
+Mr. Mime;122;Psíquico;*;Não evoluem
+Scyther;123;Inseto;Voador;Scizor #212
+Jynx;124;Gelo;Psíquico;Não evoluem
+Electabuzz;125;Elétrico;*;Não evoluem
+Magmar;126;Fogo;*;Não evoluem
+Mega Pinsir;127;Inseto;Voador;Não evoluem
+Pinsir;127;Inseto;*;Mega Evolução
+Tauros;128;Normal;*;Não evoluem
+Magikarp;129;Água;*;Gyarados #130
+Gyarados;130;Água;Voador;Mega Evolução
+Mega Gyarados;130;Água;Noturno;Não evoluem
+Lapras;131;Água;Gelo;Não evoluem
+Ditto;132;Normal;*;Não evoluem
+Eevee;133;Normal;*;"Vaporeon #134, Jolteon #135, Flareon #136"
+Vaporeon;134;Água;*;Não evoluem
+Jolteon;135;Elétrico;*;Não evoluem
+Flareon;136;Fogo;*;Não evoluem
+Porygon;137;Normal;*;Não evoluem
+Omanyte;138;Pedra;Água;Omastar #139
+Omastar;139;Pedra;Água;Não evoluem
+Kabuto;140;Pedra;Água;Kabutops #141
+Kabutops;141;Pedra;Água;Não evoluem
+Aerodactyl;142;Pedra;Voador;Mega Evolução
+Mega Aerodactyl;142;Pedra;Voador;Não evoluem
+Snorlax;143;Normal;*;Não evoluem
+Articuno;144;Gelo;Voador;Não evoluem
+Zapdos;145;Elétrico;Voador;Não evoluem
+Moltres;146;Fogo;Voador;Não evoluem
+Dratini;147;Dragão;*;Dragonair #148
+Dragonair;148;Dragão;*;Dragonite #149
+Dragonite;149;Dragão;Voador;Não evoluem
+Mega Mewtwo X;150;Psíquico;Lutador;Não evoluem
+Mega Mewtwo Y;150;Psíquico;*;Não evoluem
+Mewtwo;150;Psíquico;*;Mega Evolução
+Mew;151;Psíquico;*;Não evoluem
