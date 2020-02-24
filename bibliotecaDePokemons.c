@@ -58,6 +58,11 @@ void printPokemon(pokemon* poke){
     );
 }
 
+void printTreinador(treinador* t){
+    if(t == NULL) return;
+    printf("Nome: %s\nCódigo: %d\n", t->nome,t->codt);
+}
+
 char** lerLinha(FILE* arquivo, int* tam){
     int pos[100];
     int indice = -1;
@@ -188,9 +193,17 @@ void listarPokemons(){
     }
 }
 
+treinador* buscarTreinador(char *nome){
+    for (int i = 0; i < 50 && vetordetreinadores[i] != NULL; i++){
+        if(!strcmp(nome, vetordetreinadores[i]->nome)){
+            return vetordetreinadores[i];
+        }
+    }
+    return NULL;
+}
+
 void listarTreinadores(){
-    for (int i = 0; i < 26; i++)
-    {
+    for (int i = 0; i < 50 && vetordetreinadores[i] != NULL; i++){
         printf("Codigo: %s \n", vetordetreinadores[i]->nome);
     }
 }
@@ -230,7 +243,10 @@ int login(){
         }
     }
     putchar('\n');
-    if(strcmp(login,USUARIO) || strncmp(senha,SENHA, strlen(senha))){
+
+    treinador* t = buscarTreinador(login);
+
+    if(strcmp(login,t->nome) || strcmp(senha,t->senha)){
         printf("Usuario ou senha inválidos\nPressione qualquer tecla\n");
         getch();
         return 0;
