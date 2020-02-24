@@ -182,7 +182,7 @@ void pokedex(){
     clrscr();
     char opc = ' ';
     char sair ='f';
-    char temp[] = {0};
+    char temp[15] = {0};
     while (sair == 'f')
     {
         clrscr();
@@ -193,28 +193,26 @@ void pokedex(){
         printf("4 - Meus Itens\n");
         printf("5 - Trocar pokemon\n");
         printf("6 - Sair\n");
-        opc = getchar();
+        opc = getchar(); getch();
         switch (opc){
             case '1':
                 listarPokemons();
                 printf("Pressione qualquer tecla para voltar ");
-                getch();getch();
+                getch();
                 break;
             case '2':
                 printf("Digite a especie: ");
-                scanf("%s", &temp);
+                scanf("%s", &temp); getch();
                 printPokemon(buscarPokemon(temp));
-                getch();getch();
+                getch();
                 break;
             case '6':
-                printf("Saindo\n");
                 sair = 't';
                 break;
             default:
                 break;
         }
     }
-
 }
 
 void menu(){
@@ -224,13 +222,14 @@ void menu(){
     //preencher();
     while (sair == 'f')
     {
+        clrscr();
         printf("Menu\n");
         printf("1 - Pokedex\n");
         printf("2 - Ver treinadores\n");
         printf("3 - Batalhar\n");
         printf("4 - Sair\n");
         printf("5 - Encerrar\n");
-        opc = getchar();
+        opc = getchar(); getch();
         switch (opc){
             case '1':
                 pokedex();
@@ -238,21 +237,21 @@ void menu(){
             case '4':
                 printf("Saindo....\n");
                 printf("Pressione qualquer tecla\n");
-                getch(); getch();
+                getch();
                 sair = 't';
                 break;
             case '5':
-                exit(0);
+                printf("Até a próxima...\nPressione qualquer tecla\n");
+                getch();
+                exit(EXIT_SUCCESS);
                 break;
             default:
                 break;
         }
-        clrscr();
     }
 }
 
-int main(int argc, char const *argv[])
-{   
+int main(int argc, char const *argv[]){   
     carregarDados(); 
     // while (1){
     //     if(login()){
