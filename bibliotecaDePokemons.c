@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+//#include <time.h>
 #include "myconio.h"
 
 const char USUARIO[] = "monge";
@@ -26,12 +28,24 @@ typedef struct pokemons{
     char evolucao[50];
 }pokemon;
 
+typedef struct itens{
+    char nome[20];
+    char descricao[200];
+}item;
+
+typedef struct treinadores{
+    char nome[15];
+    pokemon meuspokemons[166];
+    int qntdpokemons[166];
+    item meusitens[50];
+}treinador;
+
+
 pokemon* matrizdepokemons[26][35] = {0};
 
 void printPokemon(pokemon* poke){
     if(poke == NULL) return;
-    printf("Nome: %s\nEspécie: %s\nCódigo: %d\nEvolução: %s\nTipoA: %s\nTipoB: %s\nAtk: %d\nPV: %d\n",
-        poke->nome,
+    printf("Espécie: %s\nCódigo: %d\nEvolução: %s\nTipoA: %s\nTipoB: %s\nAtk: %d\nPV: %d\n",
         poke->especie,
         poke->codp,
         poke->evolucao,
@@ -43,7 +57,7 @@ void printPokemon(pokemon* poke){
 }
 
 void carregarDados(){
-    pokemon *novopokemon = {NULL};
+    pokemon *novopokemon = NULL;
 
     FILE* arquivo = fopen("pokemons.csv", "r");
     if(arquivo == NULL) {
@@ -54,9 +68,9 @@ void carregarDados(){
     while(!feof(arquivo)){
         char linha[100]={0};
         if(!fgets(linha, 100, arquivo)) break;
-        printf("%s", linha);
         if(!strcmp(linha,"\n")){
             fprintf(stderr, "Erro ao ler linha do arquivo de dados\n");
+            fclose(arquivo);
             exit(EXIT_FAILURE);
         }
 
@@ -87,6 +101,7 @@ void carregarDados(){
             matrizdepokemons[novopokemon->especie[0]-65][i] = novopokemon;
         }else{
             fprintf(stderr, "Erro ao gravar dados, vetor cheio\n");
+            fclose(arquivo);
             exit(EXIT_FAILURE);
         }
     }
@@ -119,24 +134,24 @@ void listarPokemons(){
 int login(){
     clrscr();
     char ch = ' ';
-    char login[10] = {0};
+    char login[15] = {0};
     char senha[10] = {0};
-    int indicedelinha = 7;
+    int indicedelinha = 8;
     int tamanhodasenha = 0;
-    printf("login: ");
-    scanf("%s", &login);
-    printf("Senha:");
-    getch();
+    printf("Login: ");
+    scanf("%s", &login); getch();
+    printf("Senha: ");
     while (ch != '\n'){
         ch = getch();
-        if(ch == 10){
-        }
         if(ch == 127){
-            if(indicedelinha > 7){
+            if(indicedelinha > 8){
                 indicedelinha--;
                 gotoxy(indicedelinha,2);
                 putchar(' ');
                 gotoxy(indicedelinha,2);
+            }
+            if(tamanhodasenha<10){
+                senha[tamanhodasenha-1]='\000';
             }
             if(tamanhodasenha>0){
                 tamanhodasenha--;
@@ -144,12 +159,14 @@ int login(){
         }else if(ch != '\n'){
             putchar('*');
             indicedelinha++;
-            senha[tamanhodasenha] = ch;
+            if(tamanhodasenha<10){
+                senha[tamanhodasenha] = ch;
+            }
             tamanhodasenha++;
         }
     }
     putchar('\n');
-    if(strcmp(login,USUARIO) || strcmp(senha,SENHA)){
+    if(strcmp(login,USUARIO) || strncmp(senha,SENHA, strlen(senha))){
         printf("Usuario ou senha inválidos\nPressione qualquer tecla\n");
         getch();
         return 0;
@@ -253,11 +270,10 @@ void menu(){
 
 int main(int argc, char const *argv[]){   
     carregarDados(); 
-    // while (1){
-    //     if(login()){
-    //         menu();
-    //     }
-    // }
-    menu();
+    while (1){
+        if(login()){
+            menu();
+        }
+    }
     return 0;
 }
