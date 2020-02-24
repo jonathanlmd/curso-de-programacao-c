@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-//#include <time.h>
 #include "myconio.h"
 
 const char USUARIO[] = "monge";
@@ -35,6 +34,8 @@ typedef struct itens{
 
 typedef struct treinadores{
     char nome[15];
+    char senha[10];
+    int codt;
     pokemon meuspokemons[166];
     int qntdpokemons[166];
     item meusitens[50];
@@ -42,6 +43,7 @@ typedef struct treinadores{
 
 
 pokemon* matrizdepokemons[26][35] = {0};
+treinador* vetordetreinadores[50] = {NULL};
 
 void printPokemon(pokemon* poke){
     if(poke == NULL) return;
@@ -56,55 +58,110 @@ void printPokemon(pokemon* poke){
     );
 }
 
-void carregarDados(){
-    pokemon *novopokemon = NULL;
+char** lerLinha(FILE* arquivo, int* tam){
+    int pos[100];
+    int indice = -1;
+    char linha[100]={0};
 
-    FILE* arquivo = fopen("pokemons.csv", "r");
-    if(arquivo == NULL) {
-        fprintf(stderr, "Erro ao abrir arquivo de dados\n");
-        exit(EXIT_FAILURE);
+    if(!fgets(linha, 100, arquivo)) return NULL;
+    for (int i = 0; i < strlen(linha); i++){
+        if(linha[i] == ';') pos[++indice] = i;
     }
 
-    while(!feof(arquivo)){
-        char linha[100]={0};
-        if(!fgets(linha, 100, arquivo)) break;
-        if(!strcmp(linha,"\n")){
-            fprintf(stderr, "Erro ao ler linha do arquivo de dados\n");
-            fclose(arquivo);
-            exit(EXIT_FAILURE);
-        }
+    char** buffer = (char**)calloc(indice+1,sizeof(char*));
 
+    buffer[0] = (char*)calloc(pos[0], sizeof(char));
+    strncpy(buffer[0],linha,pos[0]);
+
+    for (int i = 1; i <= indice; i++){
+        buffer[i] = (char*)calloc(pos[i]-pos[i-1]+1, sizeof(char));
+        strncpy(buffer[i],linha+(pos[i-1]+1),pos[i]-pos[i-1]-1);
+    }
+    buffer[indice+1] = (char*)calloc(strlen(linha)-pos[indice]-1, sizeof(char));
+    strncpy(buffer[indice+1],linha+(pos[indice]+1),strlen(linha)-pos[indice]-2);
+
+    *tam = indice+2;
+    return buffer;
+}
+
+void carregarPokemons(FILE* arquivo){
+    pokemon *novopokemon = NULL;
+    int tam;
+    char** linha = lerLinha(arquivo, &tam);
+    while(linha){
         novopokemon = (pokemon*)calloc(1,sizeof(pokemon));
-
-        char* especie = strchr(linha,';');
-        char* cod = strchr(especie+1,';');
-        char* tipoa = strchr(cod+1,';');
-        char* tipob = strchr(tipoa+1,';');
-        char* evolucao = strchr(tipob+1,'\n');
-        int tamespecie = especie-linha;
-        int tamcod = cod- ++especie;
-        int tamtipoa = tipoa- ++cod;
-        int tamtipob = tipob- ++tipoa;
-        int tamevolucao = evolucao- ++tipob;
-
-        char codtemp[] = {0};
-        strncpy(novopokemon->especie, linha, tamespecie);
-        strncpy(codtemp, especie, tamcod);
-        novopokemon->codp = atoi(codtemp);
-        strncpy(novopokemon->tipop[0], cod, tamtipoa);
-        strncpy(novopokemon->tipop[1], tipoa, tamtipob);
-        strncpy(novopokemon->evolucao, tipob, tamevolucao);
-
-        int i=0;
-        for (i = 0; i < 35 && matrizdepokemons[novopokemon->especie[0]-65][i] != NULL ; i++);
-        if(i<35){
-            matrizdepokemons[novopokemon->especie[0]-65][i] = novopokemon;
+        strcpy(novopokemon->especie,linha[0]);
+        char codtemp[3] = {0};
+        strcpy(codtemp,linha[1]);
+        novopokemon->codp=atoi(codtemp);
+        strcpy(novopokemon->tipop[0],linha[2]);
+        strcpy(novopokemon->tipop[1],linha[3]);
+        strcpy(novopokemon->evolucao,linha[4]);
+        int j;
+        for (j = 0; j < 35 && matrizdepokemons[novopokemon->especie[0]-65][j] != NULL ; j++);
+        if(j<35){
+            matrizdepokemons[novopokemon->especie[0]-65][j] = novopokemon;
         }else{
             fprintf(stderr, "Erro ao gravar dados, vetor cheio\n");
             fclose(arquivo);
             exit(EXIT_FAILURE);
         }
+        for (int i = 0; i < tam; i++) free(linha[i]);
+        free(linha);
+        tam = 0;
+        linha = lerLinha(arquivo, &tam);
     }
+}
+
+void carregarTreinadores(FILE* arquivo){
+    treinador *novotreinador = NULL;
+    int tam;
+    char** linha = lerLinha(arquivo, &tam);
+    while(linha){
+        novotreinador = (treinador*)calloc(1,sizeof(treinador));
+        strcpy(novotreinador->nome,linha[0]);
+        strcpy(novotreinador->senha,linha[1]);
+        char codtemp[5] = {0};
+        strcpy(codtemp,linha[2]);
+        novotreinador->codt=atoi(codtemp);
+
+        int j;
+        for (j = 0; j < 50 && vetordetreinadores[j] != NULL ; j++);
+        if(j<50){
+            vetordetreinadores[j] = novotreinador;
+        }else{
+            fprintf(stderr, "Erro ao gravar dados, vetor cheio\n");
+            fclose(arquivo);
+            exit(EXIT_FAILURE);
+        }
+        for (int i = 0; i < tam; i++) free(linha[i]);
+        free(linha);
+        tam = 0;
+        linha = lerLinha(arquivo, &tam);
+    }
+}
+
+void carregarDados(){
+    FILE* arquivo;
+
+    arquivo = fopen("pokemons.csv", "r");
+    if(arquivo == NULL) {
+        fprintf(stderr, "Erro ao abrir arquivo de dados\n");
+        exit(EXIT_FAILURE);
+    }
+
+    carregarPokemons(arquivo);
+
+    fclose(arquivo);
+
+    arquivo = fopen("treinadores.csv", "r");
+    if(arquivo == NULL) {
+        fprintf(stderr, "Erro ao abrir arquivo de dados\n");
+        exit(EXIT_FAILURE);
+    }
+
+    carregarTreinadores(arquivo);
+
     fclose(arquivo);
 }
 
@@ -128,6 +185,13 @@ void listarPokemons(){
             printf("Codigo: %d \n", matrizdepokemons[i][j]->codp);
             j++;
         }
+    }
+}
+
+void listarTreinadores(){
+    for (int i = 0; i < 26; i++)
+    {
+        printf("Codigo: %s \n", vetordetreinadores[i]->nome);
     }
 }
 
@@ -183,7 +247,7 @@ pokemon* buscarPokemon(char *nomepokemon){
         printf("Não encontrado\n");
         return NULL;
     }
-    for (int i = 0; i < 10; i++){
+    for (int i = 0; i < 35; i++){
         if(matrizdepokemons[(int)nomepokemon[0]-65][i] != NULL &&
             !strcmp(nomepokemon, matrizdepokemons[(int)nomepokemon[0]-65][i]->especie)){
             return matrizdepokemons[(int)nomepokemon[0]-65][i];
@@ -191,7 +255,6 @@ pokemon* buscarPokemon(char *nomepokemon){
     }
     printf("Não encontrado\n");
     printf("Pressione qualquer tecla para voltar");
-    getch();
     return NULL;
 }
 
@@ -250,6 +313,10 @@ void menu(){
         switch (opc){
             case '1':
                 pokedex();
+                break;
+            case '2':
+                listarTreinadores();
+                getch();
                 break;
             case '4':
                 printf("Saindo....\n");
