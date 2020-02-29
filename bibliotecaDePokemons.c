@@ -30,6 +30,7 @@ typedef struct pokemons{
 
 //definição da estrutura de um item
 typedef struct itens{
+    int codi;
     char nome[20];
     char descricao[200];
 }item;
@@ -47,8 +48,11 @@ typedef struct treinadores{
 //Matriz para armazenar todos os pokemons carregados
 pokemon* matrizdepokemons[26][35] = {0};
 
-//Matriz para armazenar todos os treinadores carregados
+//Vetor para armazenar todos os treinadores carregados
 treinador* vetordetreinadores[50] = {NULL};
+
+//Vetor para armazenar todos os itens carregados
+item* vetordeitens[15] = {NULL};
 
 //Função para imprimir um pokemon na tela com uma estrutura fixa
 //Recebe um ponteiro para um pokemon a ser impresso na tela
@@ -121,11 +125,10 @@ char** lerLinha(FILE* arquivo, int* tam){
     return vetordecampos; //Retorna o vetor de strings
 }
 
-
 /*
  * Função: carregarPokemons
  *       Lê os pokemons armazenados em um csv linha por linha
- *       com a função lerLinhas e armazena cada um em na matrizdepokemons
+ *       com a função lerLinhas e armazena cada um em na matrizdepokemons[]
  * 
  * arquivo (FILE*): ponteiro para o arquivo a ser lido
  * 
@@ -148,7 +151,7 @@ void carregarPokemons(FILE* arquivo){
         strcpy(novopokemon->tipop[1],linha[3]);
         strcpy(novopokemon->evolucao,linha[4]);
 
-        // Encontra a posição correta para armazenaro o pokemon na matrizdepokemons
+        // Encontra a posição correta para armazenaro o pokemon na matrizdepokemons[]
         // e grava o pokemon na matriz se ouver espaço
         int j;
         for (j = 0; j < 35 && matrizdepokemons[novopokemon->especie[0]-65][j] != NULL ; j++);
@@ -175,7 +178,7 @@ void carregarPokemons(FILE* arquivo){
 /*
  * Função: carregarTreinadores
  *       Lê os treinadores armazenados em um csv linha por linha
- *       com a função lerLinhas e armazena cada um em no vetordetreinadores
+ *       com a função lerLinhas e armazena cada um em no vetordetreinadores[]
  * 
  * arquivo (FILE*): ponteiro para o arquivo a ser lido
  * 
@@ -195,14 +198,63 @@ void carregarTreinadores(FILE* arquivo){
         strcpy(novotreinador->senha,linha[1]);
         char codtemp[5] = {0};
         strcpy(codtemp,linha[2]);
-        novotreinador->codt=atoi(codtemp);
+        novotreinador->codt=atoi(codtemp); //atoi converte uma string em inteiro
 
-        // Encontra a posição correta para armazenaro o treinador no vetordetreinadores
+        // Encontra a posição correta para armazenaro o treinador no vetordetreinadores[]
         // e grava o treinador na vetor se ouver espaço
         int j;
         for (j = 0; j < 50 && vetordetreinadores[j] != NULL ; j++);
         if(j<50){
             vetordetreinadores[j] = novotreinador;
+        }else{
+            // Em caso de erro encerra o programa
+            fprintf(stderr, "Erro ao gravar dados, vetor cheio\n");
+            fclose(arquivo);
+            exit(EXIT_FAILURE);
+        }
+
+        //Libera o espaço alocado em cada posição da linha
+        for (int i = 0; i < tam; i++) free(linha[i]);
+        //Libera o espaço alocado para o vetor linha
+        free(linha);
+        //Zera o tamanho dos campos e tentar ler uma nova linha
+        tam = 0;
+        linha = lerLinha(arquivo, &tam);
+    }
+}
+
+/*
+ * Função: carregarItens
+ *       Lê os itens armazenados em um csv linha por linha
+ *       com a função lerLinhas e armazena cada um em no vetordeitens[]
+ * 
+ * arquivo (FILE*): ponteiro para o arquivo a ser lido
+ * 
+*/
+void carregarItens(FILE* arquivo){
+    item* novoitem = NULL; //Ponteiro par novo item a ser lido
+    int tam; //Inteiro para guardar numero de campos da linha
+    char** linha = lerLinha(arquivo, &tam); //Lê a linha do arquivo
+
+    // Enquanto ouver uma linha a ser lida, executa o carregamento
+    while(linha){
+        //Aloca espaço para o novo treinador
+        novoitem = (item*)calloc(1,sizeof(item));
+
+        //copia string de cada campo nos atributos do item
+        char codtemp[5] = {0};
+        strcpy(codtemp,linha[0]);
+        novoitem->codi = atoi(codtemp); //atoi converte uma string em inteiro
+        strcpy(novoitem->nome,linha[1]);
+        strcpy(novoitem->descricao,linha[2]);
+        
+
+        // Encontra a posição correta para armazenaro o item no vetordeitens[]
+        // e grava o item na vetor se ouver espaço
+        int j;
+        for (j = 0; j < 15 && vetordeitens[j] != NULL ; j++);
+        if(j<15){
+            vetordeitens[j] = novoitem;
         }else{
             // Em caso de erro encerra o programa
             fprintf(stderr, "Erro ao gravar dados, vetor cheio\n");
@@ -250,6 +302,18 @@ void carregarDados(){
     //Chama procedimento de leitura de treinadores
     carregarTreinadores(arquivo);
     //Fecha arquivo treinadores
+    fclose(arquivo);
+
+    //Tenta abrir arquivo de itens
+    arquivo = fopen("itens.csv", "r");
+    //Em caso de erro na abertura do arquivo, fecha o programa
+    if(arquivo == NULL) {
+        fprintf(stderr, "Erro ao abrir arquivo de dados\n");
+        exit(EXIT_FAILURE);
+    }
+    //Chama procedimento de leitura de itens
+    carregarItens(arquivo);
+    //Fecha arquivo itens
     fclose(arquivo);
 }
 
@@ -447,6 +511,11 @@ void pokedex(){
                 printf("\nPressione qualquer tecla para voltar ");
                 getch(); //getch() para esperar ação do usuário
                 break;
+            case '4':
+                //listarItens();
+                printf("\nPressione qualquer tecla para voltar ");
+                getch(); //getch() para esperar ação do usuário
+                break;
             case '6':
                 sair = 't';
                 break;
@@ -504,6 +573,7 @@ void menu(){
         }
     }
 }
+
 //Função principal
 int main(int argc, char const *argv[]){   
     //Carregar dados dos arquivos
