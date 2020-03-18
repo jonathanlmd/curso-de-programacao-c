@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
+#include <json-c/json.h>
 // Biblioteca feita para padronizar nomes de funções com windows
 // Apenas utilizavel no linux
 #include "myconio.h" // No windows, usar <conio.h>
